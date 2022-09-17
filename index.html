@@ -1,0 +1,565 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Contexto de apilamiento CSS</title>
+
+
+
+
+    <style>
+        @font-face {
+        font-family: "Alice in Wonderland"; 
+        src: url("//db.onlinewebfonts.com/t/bd9854838c01df28d837da7fa2240dcd.eot");       
+        src: url("//db.onlinewebfonts.com/t/bd9854838c01df28d837da7fa2240dcd.eot?#iefix") format("embedded-opentype"),        url("//db.onlinewebfonts.com/t/bd9854838c01df28d837da7fa2240dcd.woff2") format("woff2"),        url("//db.onlinewebfonts.com/t/bd9854838c01df28d837da7fa2240dcd.woff") format("woff"),        url("//db.onlinewebfonts.com/t/bd9854838c01df28d837da7fa2240dcd.ttf") format("truetype"),        url("//db.onlinewebfonts.com/t/bd9854838c01df28d837da7fa2240dcd.svg#Alice in Wonderland") format("svg"); 
+        }
+
+        :root {
+            --phone: black;
+            --sky: #CCEFFF;
+            --eyes: rgb(58, 58, 58);
+            --white: white;
+            --brown: #BA6C51;
+            --dark-green: #65A167;
+            --dark-brown: #A3553D;
+            --dark-bush: #2f5f30;
+        }
+
+
+
+        body {
+            counter-reset: score;
+            margin: 0;
+            height: 100vh;
+            width: 100%;
+            display: grid;
+            place-items: center;
+        }
+
+        input[type=checkbox] {
+            position: absolute;
+            outline: none;
+            appearance: none;
+            cursor: pointer;
+            z-index: 2;
+            width: 100%;
+            height: 80px;
+        }
+
+        input:checked {
+            counter-increment: score;
+        }
+
+        .total-count::after {
+            content: counter(score);
+        }
+    
+        h1 {
+            font-size: 36px;
+            font-weight: lighter;
+            margin: 0;
+            font-family: "Alice in Wonderland";
+            color: var(--dark-brown);
+        }
+
+        .title-and-counter {
+            margin: 0;
+            height: 150px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-direction: column;
+        }
+
+        .total-count {
+            margin: 0;
+            font-size: 16px;
+            font-weight: regular;
+            margin: 0;
+            font-family: 'Montserrat', sans-serif; font-family: 'Quicksand', sans-serif;
+            color: var(--dark-brown);
+        }
+
+
+        .phone {
+            position: relative;
+            border: 8px solid var(--phone);
+            border-radius: 40px;
+            height: 600px;
+            width: 300px;
+            background-color: var(--sky);
+            box-shadow: 0 19px 38px rgb(0, 0, 0, 0.30), 0 15px 12px rgb(0, 0, 0, 0.22);
+            overflow: hidden;
+        }
+
+        .bunny-animation {
+            animation-name: bunny-hiding;
+            animation-duration: 1s;
+            animation-timing-function: ease-in-out;
+            animation-iteration-count: infinite;
+        }
+
+        @keyframes bunny-hiding {
+           0% {
+            bottom: 0;
+           }
+
+           25% {
+            bottom: -80px;
+           }
+
+           100% {
+           }
+        }
+
+        /* <!-- bunny 1 --> */
+        .layer-1 {
+            position: absolute;
+            z-index: 1;
+            height: 450px;
+            width: 80px;
+            bottom: 0;
+            right: 60px;
+            animation-delay: .5s;
+        }
+
+
+        /* <!-- bunny 2 --> */
+        .layer-2 {
+            position: absolute;
+            z-index: 2;
+            height: 450px;
+            width: 80px;
+            bottom: 0;
+            left: 60px;
+            animation-delay: .9s;
+        }
+
+        /* <!-- wall 1 --> */
+        .layer-3 {
+            position: absolute;
+            z-index: 3;
+            left: 0;
+            right: 0;
+            margin: 0 auto;
+            width: 220px;
+            height: 400px;
+            background: var(--brown);
+            bottom: 0;
+            border-top-left-radius: 30px;
+            border-top-right-radius: 30px;
+        }
+
+        /* <!-- bunny 3 --> */
+        .layer-4 {
+            position: absolute;
+            z-index: 4;
+            height: 330px;
+            width: 80px;
+            bottom: 0;
+            left: 20px;
+            animation-delay: .2s;
+        }
+
+        
+        /* <!-- wall 2 --> */
+        .layer-5 {
+            position: absolute;
+            z-index: 5;
+            left: 0px;
+            width: 200px;
+            height: 280px;
+            background: var(--brown);
+            bottom: 0;
+            border-top-left-radius: 30px;
+            border-top-right-radius: 30px;
+        }
+
+        /* <!-- bunny 4 --> */
+        .layer-6 {
+            position: absolute;
+            z-index: 6;
+            height: 230px;
+            width: 80px;
+            bottom: 0;
+            right: 20px;
+            animation-delay: .3s;
+        }
+
+        /* <!-- wall 3 --> */
+        .layer-7 {
+            position: absolute;
+            z-index: 7;
+            right: 0px;
+            width: 150px;
+            height: 180px;
+            background: var(--brown);
+            bottom: 0;
+            border-top-left-radius: 30px;
+            border-top-right-radius: 30px;
+        }
+
+        /* <!-- lawn 1 --> */
+        .layer-8 {
+            position: absolute;
+            z-index: 8;
+            left: 0;
+            right: 0;
+            margin: 0 auto;
+            width: 250px;
+            height: 120px;
+            background: none;
+            bottom: 0;
+        }
+
+        /* <!-- lawn 2 --> */        
+        .layer-9 {
+            position: absolute;
+            z-index: 9;
+            left: -40px;;
+            width: 130px;
+            height: 100px;
+            background: none;
+            bottom: 0;
+
+
+            /* display: none; */
+        }
+
+        /* <!-- lawn 3 --> */
+        .layer-10 {
+            position: absolute;
+            z-index: 10;
+            right: -50px;
+            width: 130px;
+            height: 100px;
+            background: none;
+            bottom: 0;
+
+            
+            /* display: none; */
+        }
+
+        .left-ear--outer {
+            background: white;
+            border-radius: 90%;
+            width: 20px;
+            height: 50px;
+            position: absolute;
+            left: 10px;
+        }
+
+        .left-ear--inner {
+            background: pink;
+            border-radius: 90%;
+            width: 10px;
+            height: 50px;
+            position: absolute;
+            left: 15px;
+            top: 8px;
+        }
+
+        .right-ear--outer {
+            background: white;
+            border-radius: 90%;
+            width: 20px;
+            height: 50px;
+            position: absolute;
+            right: 10px;
+        }
+
+        .right-ear--inner {
+            background: pink;
+            border-radius: 90%;
+            width: 10px;
+            height: 50px;
+            position: absolute;
+            right: 15px;
+            top: 8px;
+        }
+
+        .head {
+            background: white;
+            border-radius: 50%;
+            height: 80px;
+            left: 0;
+            right: 0;
+            margin: 0 auto;
+            position: absolute;
+            top: 30px;
+            width: 100%;
+
+        }
+
+        .head__eye {
+            background: var(--eyes);
+            border-radius: 50%;
+            width: 4px;
+            height: 4px;
+            position: absolute;
+            top: 15px;
+
+            animation-name: blink;
+            animation-duration: 2s;
+            animation-iteration-count: infinite;
+        }
+
+
+        @keyframes blink {
+            0% {
+                height: 4px;
+            }
+
+            5% {
+                transform: translate(0px, 2px);
+                height: 1px;
+            }
+
+            10% {
+                transform: translate(0px, 0px);
+                height: 4px;
+            }
+
+
+        }
+
+
+        .head__eye--left {
+            left: 30px;
+        }
+        
+        .head__eye--right {
+            right: 30px;
+        }
+
+        .lawn__wall--grass {
+            background: var(--dark-green);
+            border-top-left-radius: 30px;
+            border-top-right-radius: 30px;
+            width: 100%;
+            height: 20px;
+            position: absolute;
+            top: 0px;
+        }
+
+        .lawn__wall--shadow {            
+            background-image:  linear-gradient(135deg, var(--dark-green) 25%, transparent 25%), linear-gradient(225deg,  var(--dark-green) 25%, transparent 25%), linear-gradient(45deg, var(--brown) 25%, transparent 25%), linear-gradient(315deg, var(--brown) 25%, var(--dark-brown) 25%);
+            background-position:  15px 0, 15px 0, 0 0, 0 0;
+            background-size: 30px;
+                        
+            width: 100%;
+            height: 30px;
+            position: absolute;
+            top: 20px;
+        }
+
+        .bush-circle--center {
+            background: var(--dark-green);
+            width: 100px;
+            height: 100px;
+            position: absolute;
+            margin: 0 auto;
+            left: 0;
+            right: 0;
+            bottom: -50px;
+            border-radius: 50%;
+        }
+
+        .bush-circle--top {
+            background: var(--dark-green);
+            width: 100px;
+            height: 100px;
+            position: absolute;
+            margin: 0 auto;
+            left: 0;
+            right: 0;
+            border-radius: 50%;
+            
+        }
+
+        .bush-circle--left {
+            background: var(--dark-green);
+            width: 100px;
+            height: 100px;
+            position: absolute;
+            margin: 0 auto;
+            left: 10px;
+            top: 40px;
+            border-radius: 50%;
+        }
+
+        .bush-circle--right {
+            background: var(--dark-green);
+            width: 100px;
+            height: 100px;
+            position: absolute;
+            margin: 0 auto;
+            right: 10px;
+            top: 25px;
+            border-radius: 50%;
+        }
+
+
+        .bush-circle--center2 {
+            background: var(--dark-bush);
+            width: 70px;
+            height: 70px;
+            position: absolute;
+            margin: 0 auto;
+            left: 0;
+            right: 0;
+            bottom: -10px;
+            border-radius: 50%;
+        }
+
+        .bush-circle--top2 {
+            background: var(--dark-bush);
+            width: 70px;
+            height: 70px;
+            position: absolute;
+            margin: 0 auto;
+            left: 0;
+            right: 0;
+            top: 15px;
+            border-radius: 50%;
+            
+        }
+
+        .bush-circle--left2 {
+            background: var(--dark-bush);
+            width: 70px;
+            height: 70px;
+            position: absolute;
+            margin: 0 auto;
+            left: 0;
+            bottom: -10px;
+            border-radius: 50%;
+        }
+
+        .bush-circle--right2 {
+            background: var(--dark-bush);
+            width: 70px;
+            height: 70px;
+            position: absolute;
+            margin: 0 auto;
+            right: 0;
+            bottom: -20px;
+            border-radius: 50%;
+        }
+
+    </style>
+
+
+
+
+
+</head>
+<body>
+    <div class="phone">
+
+        <div class="title-and-counter">
+            <h1>Animationland</h1>
+                
+            <!-- bunny 1 -->
+            <div class="bunny-animation layer-1">
+                <div class="left-ear--outer"></div>
+                <div class="left-ear--inner"></div>
+                <div class="right-ear--outer"></div>
+                <div class="right-ear--inner"></div>
+                <div class="head">
+                    <div class="head__eye  head__eye--left"></div>
+                    <div class="head__eye head__eye--right"></div>
+                </div>
+                <input type="checkbox">
+            </div>
+
+            <!-- bunny 2 -->
+            <div class="bunny-animation layer-2">
+                <div class="left-ear--outer"></div>
+                <div class="left-ear--inner"></div>
+                <div class="right-ear--outer"></div>
+                <div class="right-ear--inner"></div>
+                <div class="head">
+                    <div class="head__eye  head__eye--left"></div>
+                    <div class="head__eye head__eye--right"></div>
+                </div>
+                <input type="checkbox">
+            </div>
+
+            <!-- wall 1 -->
+            <div class="layer-3">
+                <div class="lawn__wall lawn__wall--grass"></div>
+                <div class="lawn__wall lawn__wall--shadow"></div>
+            </div>
+            
+            <!-- bunny 3 -->
+            <div class="bunny-animation layer-4">
+                <div class="left-ear--outer"></div>
+                <div class="left-ear--inner"></div>
+                <div class="right-ear--outer"></div>
+                <div class="right-ear--inner"></div>
+                <div class="head">
+                    <div class="head__eye  head__eye--left"></div>
+                    <div class="head__eye head__eye--right"></div>
+                </div>
+                <input type="checkbox">
+            </div>
+            
+            <!-- wall 2 -->
+            <div class="layer-5">
+                <div class="lawn__wall lawn__wall--grass"></div>
+                <div class="lawn__wall lawn__wall--shadow"></div>
+            </div>
+            
+            <!-- bunny 4 -->
+            <div class="bunny-animation layer-6">
+                <div class="left-ear--outer"></div>
+                <div class="left-ear--inner"></div>
+                <div class="right-ear--outer"></div>
+                <div class="right-ear--inner"></div>
+                <div class="head">
+                    <div class="head__eye  head__eye--left"></div>
+                    <div class="head__eye head__eye--right"></div>
+                </div>
+                <input type="checkbox">
+            </div>
+            
+            <!-- wall 3 -->
+            <div class="layer-7">
+                <div class="lawn__wall lawn__wall--grass"></div>
+                <div class="lawn__wall lawn__wall--shadow"></div>
+            </div>
+            
+            <!-- lawn 1 -->
+            <div class="layer-8">
+                <div class="bush-circle--center"></div>
+                <div class="bush-circle--top"></div>
+                <div class="bush-circle--left"></div>
+                <div class="bush-circle--right"></div>
+            </div>
+            
+            <!-- lawn 2 -->
+            <div class="layer-9">
+                <div class="bush-circle--center2"></div>
+                <div class="bush-circle--top2"></div>
+                <div class="bush-circle--left2"></div>
+                <div class="bush-circle--right2"></div>
+            </div>
+            
+            <!-- lawn 3 -->
+            <div class="layer-10">
+                <div class="bush-circle--center2"></div>
+                <div class="bush-circle--top2"></div>
+                <div class="bush-circle--left2"></div>
+                <div class="bush-circle--right2"></div>
+            </div>
+
+            <h2 class="total-count">Score: </h2>
+        </div>
+
+
+    </div>    
+</body>
+</html>
